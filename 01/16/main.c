@@ -33,7 +33,7 @@ int main(void)
     while ((len = getline2(line, MAXLINE)) > 0)
     {
         /* print each line taken as input */
-        printf("%d: \"%s\"", len, line);
+        printf("%d: \"%s\"\n", len, line);
         /* if line is longest, store it and record length */
         if (len > max)
         {
@@ -44,8 +44,8 @@ int main(void)
     /* if there was a line taken in input, then print the max line */
     if (max > 0)
     {
-        printf("Longest line: \t%s", longest);
-        printf("Length of line:\t%d", max);
+        printf("Longest line: \t%s\n", longest);
+        printf("Length of line:\t%d\n", max);
     }
     return 0;
 }
@@ -54,27 +54,34 @@ int main(void)
 /* define getline2 */
 int getline2(char s[], int lim)
 {
+    /* variable to store each char, and variable for index of counting length of line */
     int c, i;
+    /* variable to count the index of array to store the string */
+    int j;
+    j = 0;
 
     /* for loop to capture characters in line, no EOF, and no newline */
     /* limit of characters per line is ignored because arbitrarily long lines are handled */
     for (i = 0; ((c = getchar()) != EOF) && (c != '\n'); ++i)
     {
         /* store line chars in array when within limit where last two chars are \n, and \0. */
-        /* therefore, indices 0-(lim-1) is total, but [lim-2]=\n, and [lim-1]=\0 */
-        if ()
+        /* therefore, indices 0-(lim-1) is total, but [lim-2]=\n (but choose not to store), and [lim-1]=\0 */
+        if (i < (lim-1))
         {
-            
+            s[j] = c;
+            ++j;
         }
         
     }
-    /* if line has newline at end, capture newline */
+    /* if line has newline at end, don't capture newline in storage (it's easier to handle), */
+    /* but don't count as character */
     if (c == '\n')
     {
-        s[i] = c;
-        ++i;
+        /* s[j] = c; */
+        /* ++j; */
     }
-    s[i] = '\0';
+    /* store ending null char */
+    s[j] = '\0';
     return i;
 }
 
