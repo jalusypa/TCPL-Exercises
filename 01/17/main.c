@@ -1,51 +1,31 @@
 /****************************************************************
-program to capture the longest line, and correctly print the
-length of arbitrarily long input lines, and as much of the text
-as possible
-
-NOTE!!!
-cannot use "getline" as name of defined function because of
-function of same name being introduced into the c lib stdio.h
-around 2010.
+Program to print all input lines that are longer than 80 chars
 -----------------------
 Jaimin L. Symonds Patel
 *****************************************************************/
 
 #include <stdio.h>
 #define MAXLINE 1000            /* maximum input line size */
+#define LIMIT 80                /* limit of chars after which input is printed */
 
 int getline2(char line[], int maxline);
-void copy(char to[], char from[]);
 
 int main(void)
 {
     /* current line length */
     int len;
-    /* max length seen so far */
-    int max;
 
     /* current input line */
     char line[MAXLINE];
-    /* longest line is saved here */
-    char longest[MAXLINE];
 
-    max = 0;
     while ((len = getline2(line, MAXLINE)) > 0)
     {
-        /* print each line taken as input */
-        printf("%d: \"%s\"\n", len, line);
-        /* if line is longest, store it and record length */
-        if (len > max)
+        if (len > LIMIT)
         {
-            max = len;
-            copy(longest, line);
+            /* print each line taken as input only if its LIMIT chars or longer*/
+            printf("%s\n", line);
+            
         }
-    }
-    /* if there was a line taken in input, then print the max line */
-    if (max > 0)
-    {
-        printf("Longest line: \t%s\n", longest);
-        printf("Length of line:\t%d\n", max);
     }
     return 0;
 }
@@ -83,16 +63,4 @@ int getline2(char s[], int lim)
     /* store ending null char */
     s[j] = '\0';
     return i;
-}
-
-/* define copy to copy char arrays */
-void copy(char to[], char from[])
-{
-    int i;
-
-    i = 0;
-    while ((to[i] = from[i]) != '\0')
-    {
-        ++i;
-    }
 }
